@@ -9,7 +9,7 @@ Build practical AI engineering skills by combining DataCamp's lessons with indep
 ## Learning window
 
 - **Current course:** DataCamp — Associate AI Engineer for Developers
-- **Trial expiry:** January 8, 2027
+- **Target learning period:** October 2026–January 2027
 - **Weekly rhythm:** short learning sessions on weekdays, hands-on implementation on Saturday, and review on Sunday.
 
 ## Working principles
@@ -69,7 +69,7 @@ Update this table during weekly reviews.
 | October 2026 | OpenAI API foundations | In progress | Completed the introductory chapter of *Working with the OpenAI API* |
 | November 2026 | Continue the developer AI-engineering track | Not started | To be planned from the actual course curriculum |
 | December 2026 | Apply course concepts in a practical feature | Not started | Scope after reviewing course progress |
-| January 1–8, 2027 | Consolidate learning and assess next steps | Not started | Review skills, course progress, and subscription value |
+| January 2027 | Consolidate learning and assess next steps | Not started | Review skills, course progress, and subscription value |
 
 ## Parking lot
 
