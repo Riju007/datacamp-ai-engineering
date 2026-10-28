@@ -18,7 +18,12 @@ client = OpenAI(base_url=BASE_URL, api_key=API_KEY)
 start = time.perf_counter()
 response = client.chat.completions.create(
     model="gpt-oss:120b",  # no "-cloud" suffix when calling directly
-    messages=[{"role": "user", "content": "In 3 bullet points, future of Rust in AI."}],
+    messages=[
+        {
+            "role": "user",
+            "content": "In 3 bullet points, future of Rust in AI.",
+        }
+    ],
     max_tokens=1000,
 )
 elapsed = time.perf_counter() - start
