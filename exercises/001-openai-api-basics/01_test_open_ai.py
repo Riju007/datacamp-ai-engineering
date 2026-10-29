@@ -27,7 +27,7 @@ response = client.chat.completions.create(
 )
 elapsed = time.perf_counter() - start
 tokens = response.usage.completion_tokens
-print(f"{elapsed:.2f}s {tokens=} {tokens/elapsed:.1f} tokens/sec")
+print(f"{elapsed:.2f}s {tokens=} {tokens / elapsed:.1f} tokens/sec")
 
 print("-------")
 
