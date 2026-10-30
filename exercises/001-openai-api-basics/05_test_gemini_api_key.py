@@ -1,6 +1,5 @@
 import os
 import time
-import json
 import requests
 from dotenv import load_dotenv
 
@@ -11,20 +10,24 @@ API_KEY = os.getenv("GEMINI_API_KEY")
 if not API_KEY:
     raise RuntimeError("Set GEMINI_API_KEY in .env")
 
-# Use the pure HTTP interface (requests) – the OpenAI client sends a bearer token
-# which Gemini does not accept.  The API key is supplied via the ``key`` query
+# Use the pure HTTP interface (requests) – the OpenAI client sends a
+# bearer token which Gemini does not accept.  The API key is supplied
+# via the ``key`` query
 # parameter.
+
 
 def list_gemini_models():
     """Return the list of available Gemini models.
 
-    The endpoint ``GET {BASE_URL}/models`` returns a JSON object with a ``models``
-    array.  We surface the raw JSON for debugging.
+    The endpoint ``GET {BASE_URL}/models`` returns a
+    JSON object with a ``models`` array.
+    We surface the raw JSON for debugging.
     """
     url = f"{BASE_URL}/models?key={API_KEY}"
     resp = requests.get(url)
     resp.raise_for_status()
     return resp.json()
+
 
 def gemini_generate(model, instructions, input_, max_output_tokens=500):
     """Call Gemini's ``generateContent`` endpoint via ``requests``.
@@ -45,7 +48,8 @@ def gemini_generate(model, instructions, input_, max_output_tokens=500):
 
 # First, discover a model that supports generateContent
 models_info = list_gemini_models()
-# Find the first model name – in practice you would filter for the desired model.
+# Find the first model name – in practice you would
+# filter for the desired model.
 # Pick the first model name and strip any leading "models/" prefix
 raw_name = models_info.get("models", [{}])[0].get("name", "gemini-1.5-flash")
 model_name = raw_name.split("/")[-1]  # e.g. "gemini-2.5-flash"
@@ -59,10 +63,12 @@ resp = gemini_generate(
 elapsed = time.perf_counter() - start
 
 # Retrieve token usage information in a tolerant way – the exact key name can
-# vary between Gemini's raw response ("usageMetadata") and the OpenAI-compatible
-# wrapper ("usage"). We fall back to an empty dict if neither is present.
+# vary between Gemini's raw response ("usageMetadata") and
+# the OpenAI-compatible wrapper ("usage").
+# We fall back to an empty dict if neither is present.
 usage_info = resp.get("usageMetadata") or resp.get("usage") or {}
-# The total token count may be under different field names depending on the API version.
+# The total token count may be under different field names
+# depending on the API version.
 total_tokens = (
     usage_info.get("totalTokenCount")
     or usage_info.get("total_tokens")
