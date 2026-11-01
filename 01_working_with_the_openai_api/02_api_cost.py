@@ -42,7 +42,7 @@ def calculate_api_cost(
     output_cost = (output_tokens / 1_000_000) * output_price
     cost = input_cost + output_cost
     print(f"Input Cost: {input_cost:.8f}")
-    print(f"Output Cost: {output_cost:8f}")
+    print(f"Output Cost: {output_cost:.8f}")
     return cost
 
 
