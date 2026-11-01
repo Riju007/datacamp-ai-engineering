@@ -18,7 +18,7 @@ MODEL: Final[str] = os.environ["OLLAMA_MODEL_NAME"]
 client: OpenAI = OpenAI(api_key=API_KEY, base_url=BASE_URL)
 
 
-def get_response_form_ai(
+def get_response_from_ai(
     client: OpenAI, input_message: str
 ) -> ChatCompletion | None:
     try:
@@ -49,7 +49,7 @@ def calculate_api_cost(
 def main():
     prompt: str = "What is the capital of India?"
     api_cost: float = 0.00
-    response = get_response_form_ai(client=client, input_message=prompt)
+    response = get_response_from_ai(client=client, input_message=prompt)
     if response is not None:
         usage: CompletionUsage | None = response.usage
         if usage is not None:

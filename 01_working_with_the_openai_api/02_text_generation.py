@@ -17,7 +17,7 @@ MODEL: str = os.environ["OLLAMA_MODEL_NAME"]
 client: OpenAI = OpenAI(api_key=API_KEY, base_url=BASE_URL)
 
 
-def get_response_form_ai(
+def get_response_from_ai(
     client: OpenAI, input_message: str
 ) -> ChatCompletion | None:
     try:
@@ -55,7 +55,7 @@ def summarize_text(text: str, bullet_points: int) -> str:
         n. This is point n.
     content: {text}
     """
-    response = get_response_form_ai(client, prompt)
+    response = get_response_from_ai(client, prompt)
     response_message: str = ""
     choice_data_list: list[Choice] = []
     if response:

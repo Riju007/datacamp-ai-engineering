@@ -14,7 +14,7 @@ API_KEY: str = os.environ["OLLAMA_API_KEY"]
 MODEL: str = os.environ["OLLAMA_MODEL_NAME"]
 
 
-def get_response_form_ai(input_message: str) -> ChatCompletion | None:
+def get_response_from_ai(input_message: str) -> ChatCompletion | None:
     client = OpenAI(base_url=BASE_URL, api_key=API_KEY)
     try:
         response: ChatCompletion = client.chat.completions.create(
@@ -68,7 +68,7 @@ def main():
             It has four wheels and is designed to carry passengers
             or cargo on roads.
     """
-    response = get_response_form_ai(input_message)
+    response = get_response_from_ai(input_message)
     message, additional_data = get_required_ai_response_data(response)
     print(f"{message}\n")
     pprint(additional_data)
