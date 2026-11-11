@@ -11,9 +11,9 @@ from openai.types.chat.chat_completion import ChatCompletion
 load_dotenv()
 
 # constants
-BASE_URL: Final[str] = os.environ["OLLAMA_BASE_URL"]
-API_KEY: Final[str] = os.environ["OLLAMA_API_KEY"]
-MODEL: Final[str] = os.environ["OLLAMA_MODEL_NAME"]
+BASE_URL: Final[str] = os.environ["GEMINI_BASE_URL"]
+API_KEY: Final[str] = os.environ["GEMINI_API_KEY"]
+MODEL: Final[str] = os.environ["GEMINI_MODEL_NAME"]
 
 client: OpenAI = OpenAI(api_key=API_KEY, base_url=BASE_URL)
 
@@ -50,6 +50,7 @@ def main():
     prompt: str = "What is the capital of India?"
     api_cost: float = 0.00
     response = get_response_from_ai(client=client, input_message=prompt)
+    # print(response.choices[0].message.content)
     if response is not None:
         usage: CompletionUsage | None = response.usage
         if usage is not None:

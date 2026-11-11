@@ -22,6 +22,7 @@ package=false
 
 [dependency-groups]
 dev = [
+    "pyright>=1.1.414",
     "ruff>=0.17.2",
     "ty>=0.0.91",
 ]
