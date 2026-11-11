@@ -37,28 +37,28 @@ Folders will be added when needed; keep the repository lightweight at the beginn
 
 Use Python and `uv` for Python exercises unless a course exercise requires a different environment.
 
-Install the OpenAI SDK when beginning local API exercises:
+Install the project dependencies and the shared configuration package:
 
 ```bash
-uv init
-uv add openai
+uv sync
 ```
 
-Set `OPENAI_API_KEY` in your shell or a local environment configuration that is excluded from Git. The OpenAI API may incur charges separately from a ChatGPT or DataCamp subscription; check API billing and available credits before sending requests.
-
-For PowerShell, a session-only variable can be set with:
+Create a local environment file from the template and add the keys for the providers you use:
 
 ```powershell
-$env:OPENAI_API_KEY = "your-api-key"
+Copy-Item .env.example .env
 ```
 
-Then create the client without embedding the secret in source code:
+The shared settings live in `src/datacamp_ai_engineering/provider_config.py`. Scripts import their provider settings from there; `.env` is found relative to the project, even when a script is in a subfolder. `.env` is excluded from Git. Never put real API keys in `.env.example`.
 
-```python
-from openai import OpenAI
+Run scripts from the repository root with `uv run` so the shared package is available. For example:
 
-client = OpenAI()
+```powershell
+uv run python hands_on_experiments/01_working_with_open_ai_api/04_test_groq_api_key.py
 ```
+
+For local Ollama, the localhost example uses the non-secret placeholder key `ollama`; set `OLLAMA_BASE_URL` and `OLLAMA_API_KEY` in `.env` when using a hosted endpoint. API calls may incur charges depending on the provider; check billing before sending requests.
+
 
 ## Progress log
 

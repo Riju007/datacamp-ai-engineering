@@ -1,21 +1,23 @@
-import os
 import time
-from openai import OpenAI
-from dotenv import load_dotenv
 
-load_dotenv(verbose=True)
-API_KEY = os.getenv("OLLAMA_API_KEY", "ollama")
-# API_KEY = os.getenv("OPENAI_API_KEY")
-BASE_URL = "http://localhost:11434/v1"
+from openai import OpenAI
+
+from datacamp_ai_engineering.provider_config import get_provider_settings
+
+settings = get_provider_settings(
+    "ollama",
+    base_url="http://localhost:11434/v1",
+    model="lfm2.5-thinking:1.2b",
+)
 
 client = OpenAI(
-    base_url=BASE_URL,
-    api_key=API_KEY,
+    base_url=settings.base_url,
+    api_key=settings.api_key,
 )
 
 start = time.perf_counter()
 response = client.chat.completions.create(
-    model="lfm2.5-thinking:1.2b",
+    model=settings.model,
     # model="phi4-mini:latest",
     messages=[
         {

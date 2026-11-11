@@ -1,16 +1,12 @@
-import os
-from dotenv import load_dotenv
-
 from openai import OpenAI
 
-load_dotenv()
+from datacamp_ai_engineering.provider_config import get_provider_settings
 
-BASE_URL = "https://ollama.com/v1"
-API_KEY = os.environ["OLLAMA_API_KEY"]
+settings = get_provider_settings("ollama")
 
-client = OpenAI(base_url=BASE_URL, api_key=API_KEY)
+client = OpenAI(base_url=settings.base_url, api_key=settings.api_key)
 response = client.chat.completions.create(
-    model="gpt-oss:120b",
+    model=settings.model,
     messages=[
         {
             "role": "user",

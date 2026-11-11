@@ -1,19 +1,17 @@
-import os
-
 from typing import Final
-from dotenv import load_dotenv
+
 from openai import OpenAI
 
 # from openai.types import CompletionUsage
 from openai.types import CompletionUsage
 from openai.types.chat.chat_completion import ChatCompletion
 
-load_dotenv()
+from datacamp_ai_engineering.provider_config import get_provider_settings
 
-# constants
-BASE_URL: Final[str] = os.environ["GEMINI_BASE_URL"]
-API_KEY: Final[str] = os.environ["GEMINI_API_KEY"]
-MODEL: Final[str] = os.environ["GEMINI_MODEL_NAME"]
+settings = get_provider_settings("gemini")
+BASE_URL: Final[str] = settings.base_url
+API_KEY: Final[str] = settings.api_key
+MODEL: Final[str] = settings.model
 
 client: OpenAI = OpenAI(api_key=API_KEY, base_url=BASE_URL)
 

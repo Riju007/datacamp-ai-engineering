@@ -1,22 +1,21 @@
-import os
-from typing import Any
 from pprint import pprint
-from dotenv import load_dotenv
+from typing import Any
+
 from openai import (
-    OpenAI,
-    AuthenticationError,
-    RateLimitError,
     APIConnectionError,
     APIStatusError,
+    AuthenticationError,
+    OpenAI,
+    RateLimitError,
 )
-
 from openai.types.chat.chat_completion import ChatCompletion
 
-load_dotenv()
+from datacamp_ai_engineering.provider_config import get_provider_settings
 
-BASE_URL: str = "https://ollama.com/v1"
-API_KEY: str = os.environ["OLLAMA_API_KEY"]
-MODEL: str = os.environ["OLLAMA_MODEL_NAME"]
+settings = get_provider_settings("ollama")
+BASE_URL: str = settings.base_url
+API_KEY: str = settings.api_key
+MODEL: str = settings.model
 
 
 def get_response_from_ai(input_message: str) -> ChatCompletion | None:

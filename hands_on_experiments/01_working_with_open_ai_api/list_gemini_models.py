@@ -1,12 +1,10 @@
-import os
 import requests
-from dotenv import load_dotenv
 
-load_dotenv()
-BASE_URL = "https://generativelanguage.googleapis.com/v1beta"
-API_KEY = os.getenv("GEMINI_API_KEY")
-if not API_KEY:
-    raise RuntimeError('Set GEMINI_API_KEY')
+from datacamp_ai_engineering.provider_config import get_provider_settings
+
+settings = get_provider_settings("gemini")
+BASE_URL = settings.native_base_url or settings.base_url
+API_KEY = settings.api_key
 url = f"{BASE_URL}/models?key={API_KEY}"
 resp = requests.get(url)
 print('status', resp.status_code)

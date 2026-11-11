@@ -1,14 +1,12 @@
-import os
 import time
+
 import requests
-from dotenv import load_dotenv
 
-load_dotenv()
+from datacamp_ai_engineering.provider_config import get_provider_settings
 
-BASE_URL = "https://generativelanguage.googleapis.com/v1beta"
-API_KEY = os.getenv("GEMINI_API_KEY")
-if not API_KEY:
-    raise RuntimeError("Set GEMINI_API_KEY in .env")
+settings = get_provider_settings("gemini")
+BASE_URL = settings.native_base_url or settings.base_url
+API_KEY = settings.api_key
 
 # Use the pure HTTP interface (requests) – the OpenAI client sends a
 # bearer token which Gemini does not accept.  The API key is supplied
@@ -51,7 +49,7 @@ models_info = list_gemini_models()
 # Find the first model name – in practice you would
 # filter for the desired model.
 # Pick the first model name and strip any leading "models/" prefix
-raw_name = models_info.get("models", [{}])[0].get("name", "gemini-1.5-flash")
+raw_name = models_info.get("models", [{}])[0].get("name", settings.model)
 model_name = raw_name.split("/")[-1]  # e.g. "gemini-2.5-flash"
 
 start = time.perf_counter()

@@ -1,17 +1,13 @@
-import os
-
-from dotenv import load_dotenv
 from openai import OpenAI
 
-load_dotenv()
+from datacamp_ai_engineering.provider_config import get_provider_settings
 
-# BASE_URL: str = "https://ollama.com/v1"
-# BASE_URL: str = "https://api.groq.com/openai/v1"
-BASE_URL: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
-# API_KEY: str = os.environ["GROQ_API_KEY"]
-API_KEY: str = os.environ["GEMINI_API_KEY"]
-
-client = OpenAI(base_url=BASE_URL, api_key=API_KEY)
+# Select which provider's compatible model list to inspect.
+# PROVIDER = "ollama"
+PROVIDER = "groq"
+# PROVIDER = "gemini"
+settings = get_provider_settings(PROVIDER)
+client = OpenAI(base_url=settings.base_url, api_key=settings.api_key)
 
 model_list = client.models.list().data
 for model in model_list:

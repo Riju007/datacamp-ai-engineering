@@ -1,18 +1,16 @@
-import os
-
 # from typing import Any
 # from pprint import pprint
-from dotenv import load_dotenv
 from openai import OpenAI
 
 # from openai.types import CompletionUsage
 from openai.types.chat.chat_completion import ChatCompletion, Choice
 
-load_dotenv()
+from datacamp_ai_engineering.provider_config import get_provider_settings
 
-BASE_URL: str = os.environ["OLLAMA_BASE_URL"]
-API_KEY: str = os.environ["OLLAMA_API_KEY"]
-MODEL: str = os.environ["OLLAMA_MODEL_NAME"]
+settings = get_provider_settings("ollama")
+BASE_URL: str = settings.base_url
+API_KEY: str = settings.api_key
+MODEL: str = settings.model
 
 client: OpenAI = OpenAI(api_key=API_KEY, base_url=BASE_URL)
 

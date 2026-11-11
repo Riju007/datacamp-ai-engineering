@@ -1,23 +1,19 @@
-import os
 import time
 
 from openai import OpenAI
-from dotenv import load_dotenv
 
-load_dotenv()
+from datacamp_ai_engineering.provider_config import get_provider_settings
 
-BASE_URL = "https://ollama.com/v1"
+settings = get_provider_settings("ollama")
 
-API_KEY = os.environ["OLLAMA_API_KEY"]
-
-client = OpenAI(base_url=BASE_URL, api_key=API_KEY)
+client = OpenAI(base_url=settings.base_url, api_key=settings.api_key)
 
 # for model in client.models.list().data:
 #     print(model.id)
 
 start = time.perf_counter()
 response = client.chat.completions.create(
-    model="gpt-oss:120b",  # no "-cloud" suffix when calling directly
+    model=settings.model,  # no "-cloud" suffix when calling directly
     messages=[
         {
             "role": "user",
